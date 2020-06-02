@@ -21,7 +21,12 @@
     "url": "https://github.com/rinamint/frontend-project-lvl2/issues"
   },
   "homepage": "https://github.com/rinamint/frontend-project-lvl2#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {}
+  },
   "dependencies": {
+    "@jest/globals": "^26.0.1",
     "comander": "0.0.1-security",
     "commander": "^5.1.0",
     "lodash": "^4.17.15"
