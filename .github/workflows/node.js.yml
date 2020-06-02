@@ -36,3 +36,5 @@ jobs:
           CC_TEST_REPORTER_ID: ee7573f16dd5494b3badfdda0b955da716726f5e21759bb60a8e16e75e9aafec
         with:
           coverageCommand: make test-coverage
+          debug: true
+          
