@@ -22,9 +22,14 @@
   },
   "homepage": "https://github.com/rinamint/frontend-project-lvl2#readme",
   "dependencies": {
-    "commander": "^5.1.0"
+    "comander": "0.0.1-security",
+    "commander": "^5.1.0",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
-    "lodash": "^4.17.15"
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "jest": "^26.0.1"
   }
 }
