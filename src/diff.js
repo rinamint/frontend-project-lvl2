@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 export default (path1, path2) => {
   const pathToObject1 = path.isAbsolute(path1) ? path1 : path.resolve(process.cwd(), path1);
