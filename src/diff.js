@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 export default (path1, path2) => {
   const pathToObject1 = path.isAbsolute(path1) ? path1 : path.resolve(process.cwd(), path1);
@@ -17,18 +15,18 @@ export default (path1, path2) => {
     const before = file1[key];
     const after = file2[key];
     if (before === after) {
-      acc.push([`${key}: ${before}`]);
+      acc.push([`    ${key}: ${before}`]);
     }
     if (before !== after) {
       if (after === undefined) {
-        acc.push([`-${key}: ${before}`]);
+        acc.push([`    -${key}: ${before}`]);
       } else {
-        acc.push([`-${key}: ${before}`]);
-        acc.push([`+${key}: ${after}`]);
+        acc.push([`    -${key}: ${before}`]);
+        acc.push([`    +${key}: ${after}`]);
       }
     }
     return acc;
   }, []);
 
-  return diff.join('\n');
+  return `{\n${diff.join('\n')}\n}`;
 };

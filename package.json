@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "second-project-on-hexlet",
   "main": "index.js",
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "scripts": {
     "test": "npx -n --experimental-vm-modules jest"
   },

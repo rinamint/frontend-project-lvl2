@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import program from 'commander';
-import diffrenece from './diff.js';
+import diffrenece from '../src/diff.js';
 
 program
   .description('Compares two configuration files and shows a difference')
@@ -14,3 +14,4 @@ program
   });
 
 program.parse(process.argv);
+
