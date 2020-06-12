@@ -1,0 +1,7 @@
+name: frontend-project-lvl2
+version: 1.0.0
+description: second-project-on-hexlet
+main: index.js
+type: module
+author: rinamint
+license: ISC

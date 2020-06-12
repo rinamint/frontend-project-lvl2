@@ -1,19 +1,31 @@
 import _ from 'lodash';
-import fs from 'fs';
 import path from 'path';
+import parseYaml from './parsers/yml.js';
+import parseJson from './parsers/json.js';
 
-export default (path1, path2) => {
+// eslint-disable-next-line consistent-return
+const files = (path1, path2) => {
   const pathToObject1 = path.isAbsolute(path1) ? path1 : path.resolve(process.cwd(), path1);
   const pathToObject2 = path.isAbsolute(path2) ? path2 : path.resolve(process.cwd(), path2);
-  const file1 = JSON.parse(fs.readFileSync(pathToObject1));
-  const file2 = JSON.parse(fs.readFileSync(pathToObject2));
-  const keys1 = Object.keys(file1);
-  const keys2 = Object.keys(file2);
+  if (path.extname(pathToObject1) === '.json') {
+    const [file1, file2] = parseJson(path1, path2);
+    return [file1, file2];
+  }
+  if (path.extname(pathToObject2) === '.yml') {
+    const [file1, file2] = parseYaml(path1, path2);
+    return [file1, file2];
+  }
+};
+
+export default (path1, path2) => {
+  const [firstFile, secondFile] = files(path1, path2);
+  const keys1 = Object.keys(firstFile);
+  const keys2 = Object.keys(secondFile);
   const keys = _.union(keys1, keys2);
 
   const diff = keys.reduce((acc, key) => {
-    const before = file1[key];
-    const after = file2[key];
+    const before = firstFile[key];
+    const after = secondFile[key];
     if (before === after) {
       acc.push([`    ${key}: ${before}`]);
     }

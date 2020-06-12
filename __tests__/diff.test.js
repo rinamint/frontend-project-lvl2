@@ -22,7 +22,10 @@ test('testResult', () => {
     '    +homepage: https://github.com/rinamint/frontend-project-lvl2#readme',
     ]
 
-  const before = getPath('before.json')
-  const after = getPath('after.json')
-  expect(diff(before, after)).toEqual(`{\n${expected.join('\n')}\n}`);
+  const beforeJSON = getPath('before.json')
+  const afterJSON = getPath('after.json')
+  const beforeYML = getPath('before.yml')
+  const afterYml = getPath('after.yml')
+  expect(diff(beforeJSON, afterJSON)).toEqual(`{\n${expected.join('\n')}\n}`);
+  expect(diff(beforeYML, afterYml)).toEqual(`{\n${expected.join('\n')}\n}`)
 });
