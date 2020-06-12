@@ -5,4 +5,4 @@
 ![Node.js CI](https://github.com/rinamint/project-lvl2/workflows/Node.js%20CI/badge.svg)
 
 
-[![asciicast](https://asciinema.org/a/fUh6ckACB1JQQOGhWnzM6v6FZ.svg)](https://asciinema.org/a/fUh6ckACB1JQQOGhWnzM6v6FZ)
+[![asciicast](https://asciinema.org/a/k7o4svdhkNiD5GkwfUJZ23aKi.svg)](https://asciinema.org/a/k7o4svdhkNiD5GkwfUJZ23aKi)
