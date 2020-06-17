@@ -7,34 +7,22 @@ const difference = (object1, object2) => {
   const keysOfFirst = Object.keys(object1);
   const keysOfSecond = Object.keys(object2);
   const keys = _.union(keysOfFirst, keysOfSecond);
-  console.log(keys)
-  const transformation = {};
-  const diff = keys.map((key) => {
+  const diff = keys.flatMap((key) => {
     const first = object1[key];
     const second = object2[key];
     if (_.has(object1, key) && _.has(object2, key)) {
       if (typeof (first) === 'object' && typeof (second) === 'object') {
-        transformation.name = key;
-        transformation.value = difference(first, second);
-        return transformation;
+        return { name: key, value: difference(first, second) };
       }
       if (first === second) {
-        transformation.name = key;
-        transformation.value = first.repeat(2);
-        return transformation;
+        return { name: key, value: first.repeat(2) };
       }
     }
     if (first === undefined) {
-      transformation.name = key;
-      transformation.value = second;
-      transformation.modification = '+';
-      return transformation;
+      return { name: key, value: second, transformation: '+' };
     }
     if (second === undefined) {
-      transformation.name = key;
-      transformation.value = first;
-      transformation.modification = '-';
-      return transformation;
+      return { name: key, value: first, transformation: '-' };
     }
   });
   return diff;
@@ -43,5 +31,5 @@ const difference = (object1, object2) => {
 export default (path1, path2) => {
   const [firstObj, secondObj] = getFiles(path1, path2);
   const transition = difference(firstObj, secondObj);
-  return transition;
+  return JSON.stringify(transition);
 };
