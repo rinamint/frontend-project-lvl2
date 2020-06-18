@@ -1,15 +1,6 @@
 {
-  "name": "frontend-project-lvl2",
-  "version": "1.0.0",
-  "description": "second-project-on-hexlet",
-  "main": "index.js",
-  
-  "type": "e",
-  
-
-  "author": "rinamint",
-  "license": "ISC",
-
-  "homepage": "https://github.com/rinamint/frontend-project-lvl2"
-
+  "host": "hexlet.io",
+  "timeout": 50,
+  "proxy": "123.234.53.22",
+  "follow": false
 }

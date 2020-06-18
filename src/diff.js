@@ -1,12 +1,16 @@
 import _ from 'lodash';
 import getFiles from './parsers/parsing.js';
+import formatter from './stylish.js';
 
 // eslint-disable-next-line consistent-return
 
 const difference = (object1, object2) => {
-  const keysOfFirst = Object.keys(object1);
-  const keysOfSecond = Object.keys(object2);
-  const keys = _.union(keysOfFirst, keysOfSecond);
+  const keysOfFirst = _.keys(object1);
+  const keysOfSecond = _.keys(object2);
+  const keys = _.union(keysOfFirst.sort(), keysOfSecond.sort()).sort();
+ 
+  console.log(keysOfFirst);
+  console.log(keys);
   const diff = keys.flatMap((key) => {
     const first = object1[key];
     const second = object2[key];
@@ -15,7 +19,10 @@ const difference = (object1, object2) => {
         return { name: key, value: difference(first, second) };
       }
       if (first === second) {
-        return { name: key, value: first.repeat(2) };
+        return { name: key, value: first };
+      }
+      if (first !== second) {
+        return { name: key, firstValue: first, secondValue: second, transformation: 'mutate' };
       }
     }
     if (first === undefined) {
@@ -31,5 +38,5 @@ const difference = (object1, object2) => {
 export default (path1, path2) => {
   const [firstObj, secondObj] = getFiles(path1, path2);
   const transition = difference(firstObj, secondObj);
-  return JSON.stringify(transition);
+  return formatter(transition);
 };

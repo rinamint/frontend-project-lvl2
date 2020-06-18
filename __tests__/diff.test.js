@@ -7,18 +7,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import diff from '../src/diff.js';
 
-const expected = [
-  '    name: frontend-project-lvl2',
-  '    version: 1.0.0',
-  '    description: second-project-on-hexlet',
-  '    main: index.js',
-  '    -type: module',
-  '    +type: e',
-  '    author: rinamint',
-  '    license: ISC',
-  '    -homepage: undefined',
-  '    +homepage: https://github.com/rinamint/frontend-project-lvl2',
-  ]
+const expected = {
+    host: hexlet.io
+  + timeout: 20
+  - timeout: 50
+  - proxy: 123.234.53.22
+  + verbose: true
+  - follow: false
+}
 
 const getPath = (filename) => path.join(__dirname, '__fixtures__', filename);
 test('JSON', () => {
