@@ -21,3 +21,7 @@ return acc;
 };
 
 export default formatter;
+
+const stylish = (object) => {
+  if (typeof (element.value) === 'object')
+}

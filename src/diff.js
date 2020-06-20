@@ -5,11 +5,11 @@ import formatter from './stylish.js';
 // eslint-disable-next-line consistent-return
 
 const difference = (object1, object2) => {
-  const keysOfFirst = _.keys(object1);
-  const keysOfSecond = _.keys(object2);
-  const keys = _.union(keysOfFirst.sort(), keysOfSecond.sort()).sort();
+  const keysOfFirst = _.keys(object1).sort();
+  const keysOfSecond = _.keys(object2).sort();
+  const keys = _.union(keysOfFirst, keysOfSecond).sort();
  
-  console.log(keysOfFirst);
+
   console.log(keys);
   const diff = keys.flatMap((key) => {
     const first = object1[key];
