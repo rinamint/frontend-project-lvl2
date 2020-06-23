@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import _ from 'lodash';
 import getFiles from './parsers/parsing.js';
 import formatter from './stylish.js';
@@ -8,28 +9,28 @@ const difference = (object1, object2) => {
   const keysOfFirst = _.keys(object1).sort();
   const keysOfSecond = _.keys(object2).sort();
   const keys = _.union(keysOfFirst, keysOfSecond).sort();
- 
-
-  console.log(keys);
+  // eslint-disable-next-line array-callback-return
   const diff = keys.flatMap((key) => {
     const first = object1[key];
     const second = object2[key];
     if (_.has(object1, key) && _.has(object2, key)) {
       if (typeof (first) === 'object' && typeof (second) === 'object') {
-        return { name: key, value: difference(first, second) };
+        return { name: key, value: difference(first, second), transformation: 'deepChange' };
       }
       if (first === second) {
-        return { name: key, value: first };
+        return { name: key, value: first, transformation: 'unchanged' };
       }
       if (first !== second) {
-        return { name: key, firstValue: first, secondValue: second, transformation: 'mutate' };
+        return {
+          name: key, firstValue: first, secondValue: second, transformation: 'changed',
+        };
       }
     }
     if (first === undefined) {
-      return { name: key, value: second, transformation: '+' };
+      return { name: key, value: second, transformation: 'added' };
     }
     if (second === undefined) {
-      return { name: key, value: first, transformation: '-' };
+      return { name: key, value: first, transformation: 'deleted' };
     }
   });
   return diff;
