@@ -1,8 +1,9 @@
 /* eslint-disable consistent-return */
 import _ from 'lodash';
 import getFiles from './parsers/parsing.js';
-import stylish from './stylish.js';
-import plain from './plain.js';
+import stylish from './formatters/stylish.js';
+import plain from './formatters/plain.js';
+import json from './formatters/json.js';
 
 // eslint-disable-next-line consistent-return
 
@@ -45,5 +46,8 @@ export default (path1, path2, format) => {
   }
   if (format === 'plain') {
     return plain(transition);
+  }
+  if (format === 'json') {
+    return json(transition);
   }
 };
