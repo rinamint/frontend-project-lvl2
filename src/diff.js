@@ -36,7 +36,7 @@ const difference = (object1, object2) => {
   return diff;
 };
 
-export default (path1, path2, formatter = 'stylish') => {
+export default (path1, path2) => {
   const [firstObj, secondObj] = getFiles(path1, path2);
   const transition = difference(firstObj, secondObj);
 
