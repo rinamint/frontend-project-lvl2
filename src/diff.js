@@ -1,7 +1,8 @@
 /* eslint-disable consistent-return */
 import _ from 'lodash';
 import getFiles from './parsers/parsing.js';
-import form from './stylish.js';
+import stylish from './stylish.js';
+import plain from './plain.js';
 
 // eslint-disable-next-line consistent-return
 
@@ -36,9 +37,13 @@ const difference = (object1, object2) => {
   return diff;
 };
 
-export default (path1, path2) => {
+export default (path1, path2, format) => {
   const [firstObj, secondObj] = getFiles(path1, path2);
   const transition = difference(firstObj, secondObj);
-
-  return form(transition);
+  if (format === 'stylish') {
+    return stylish(transition);
+  }
+  if (format === 'plain') {
+    return plain(transition);
+  }
 };
