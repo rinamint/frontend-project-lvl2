@@ -1,125 +1,20 @@
-// [
-//   {
-//     "name": "common",
-//     "value": [
-//       {
-//         "name": "follow",
-//         "value": false,
-//         "transformation": "added"
-//       },
-//       {
-//         "name": "setting1",
-//         "value": "Value 1",
-//         "transformation": "unchanged"
-//       },
-//       {
-//         "name": "setting2",
-//         "value": 200,
-//         "transformation": "deleted"
-//       },
-//       {
-//         "name": "setting3",
-//         "firstValue": true,
-//         "secondValue": {
-//           "key": "value"
-//         },
-//         "transformation": "changed"
-//       },
-//       {
-//         "name": "setting4",
-//         "value": "blah blah",
-//         "transformation": "added"
-//       },
-//       {
-//         "name": "setting5",
-//         "value": {
-//           "key5": "value5"
-//         },
-//         "transformation": "added"
-//       },
-//       {
-//         "name": "setting6",
-//         "value": [
-//           {
-//             "name": "key",
-//             "value": "value",
-//             "transformation": "unchanged"
-//           },
-//           {
-//             "name": "ops",
-//             "value": "vops",
-//             "transformation": "added"
-//           }
-//         ],
-//         "transformation": "deepChange"
-//       }
-//     ], // end of common
-//     "transformation": "deepChange"
-//   },
-//   {
-//     "name": "group1",
-//     "value": [
-//       {
-//         "name": "baz",
-//         "firstValue": "bas",
-//         "secondValue": "bars",
-//         "transformation": "changed"
-//       },
-//       {
-//         "name": "foo",
-//         "value": "bar",
-//         "transformation": "unchanged"
-//       },
-//       {
-//         "name": "nest",
-//         "firstValue": {
-//           "key": "value"
-//         },
-//         "secondValue": "str",
-//         "transformation": "changed"
-//       }
-//     ],
-//     "transformation": "deepChange"
-//   },
-//   {
-//     "name": "group2",
-//     "value": {
-//       "abc": 12345
-//     },
-//     "transformation": "deleted"
-//   },
-//   {
-//     "name": "group3",
-//     "value": {
-//       "fee": 100500
-//     },
-//     "transformation": "added"
-//   }
-// ]
-
-//       {
-//         "name": "setting3",
-//         "firstValue": true,
-//         "secondValue": {
-//           "key": "value"
-//         },
-//         "transformation": "changed"
-//       }
-
+/* eslint-disable array-callback-return */
 const stringify = (value, indents) => {
- if (typeof (value) !== 'object') {
+  if (typeof (value) !== 'object') {
     return value;
- }
+  }
   const keys = Object.keys(value);
-  const result = keys.map((key) => `\n${key}: ${value[key]}`);
+  const result = keys.map((key) => `${key}: ${value[key]}\n`);
 
-  return `{\n ${indents}      ${result.join('\n')}${indents}  }`;
- }
+  return `{\n ${indents}     ${result.join('\n')}${indents}  }`;
+};
 
- const innerFormatter = (innerTree, depth) => {
+const innerFormatter = (innerTree, depth) => {
   const indents = ' '.repeat(depth);
   const added = ' '.repeat(depth);
   const deleted = ' '.repeat(depth);
+  // eslint-disable-next-line array-callback-return
+  // eslint-disable-next-line consistent-return
   const result = innerTree.map((element) => {
     if (element.transformation === 'deepChange') {
       return [`${indents}  ${element.name}: {\n${innerFormatter(element.value, depth + 4)}\n${indents}  }`];
@@ -140,18 +35,6 @@ const stringify = (value, indents) => {
   return result.join('\n');
 };
 
-const form = (tree) => {
-//  if (formatter === 'tree') { 
-  return `{\n${innerFormatter(tree, 2)}\n}`;
-}
-//  if (formatter === 'plain') {
- // return `{\n${innerFormatter(tree, 0)}\n}`;
-//}
-//}
-//  const deep = (obj, n) => {
-//  const arr = [];
-//  const str = `\n${'    '.repeat(n)}`;
-// arr.push(deep)
-//  }
-export default form;
+const form = (tree) => `{\n${innerFormatter(tree, 2)}\n}`;
 
+export default form;
