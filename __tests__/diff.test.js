@@ -6,6 +6,7 @@ import fs from 'fs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 import diff from '../src/diff.js';
+import parsing from '../src/parsers/parsing'
 
 const getPath = (filename) => path.join(__dirname, '__fixtures__', filename);
 
@@ -20,6 +21,8 @@ test('JSON', () => {
   expect(diff(beforeJSON, afterJSON, 'stylish')).toEqual(expectedStylish);
   expect(diff(beforeJSON, afterJSON, 'plain')).toEqual(expectedPlain);
 });
+
+
 
 test('Plain nested', () => {
   const beforePlain = getPath('treeBefore.json')
