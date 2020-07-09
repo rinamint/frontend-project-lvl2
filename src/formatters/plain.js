@@ -1,14 +1,4 @@
-/* eslint-disable array-callback-return */
-const stringify = (value) => {
-  if (typeof (value) === 'object') {
-    return '[complex value]';
-  }
-  if (value === true || value === false) {
-    return value;
-  }
-  return `'${value}'`;
-};
-
+import { stringifyPlain } from '../stringify.js';
 
 const innerPlain = (tree, beginning) => {
   const onlyChanged = tree.filter((element) => element.transformation !== 'unchanged');
@@ -21,10 +11,10 @@ const innerPlain = (tree, beginning) => {
       return [`Property '${beginning}${element.name}' was removed`];
     }
     if (element.transformation === 'added') {
-      return [`Property '${beginning}${element.name}' was added with value: ${stringify(element.value)}`];
+      return [`Property '${beginning}${element.name}' was added with value: ${stringifyPlain(element.value)}`];
     }
     if (element.transformation === 'changed') {
-      return [`Property '${beginning}${element.name}' was updated. From ${stringify(element.firstValue)} to ${stringify(element.secondValue)}`];
+      return [`Property '${beginning}${element.name}' was updated. From ${stringifyPlain(element.firstValue)} to ${stringifyPlain(element.secondValue)}`];
     }
   });
   return result.flat().join('\n');

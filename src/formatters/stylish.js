@@ -1,13 +1,5 @@
-/* eslint-disable array-callback-return */
-const stringify = (value, indents) => {
-  if (typeof (value) !== 'object') {
-    return value;
-  }
-  const keys = Object.keys(value);
-  const result = keys.map((key) => `${key}: ${value[key]}\n`);
+import { stringifyTree } from '../stringify.js';
 
-  return `{\n ${indents}     ${result.join('\n')}${indents}  }`;
-};
 
 const innerFormatter = (innerTree, depth) => {
   const indents = ' '.repeat(depth);
@@ -18,16 +10,16 @@ const innerFormatter = (innerTree, depth) => {
       return [`${indents}  ${element.name}: {\n${innerFormatter(element.value, depth + 4)}\n${indents}  }`];
     }
     if (element.transformation === 'unchanged') {
-      return [`${indents}  ${element.name}: ${stringify(element.value, indents)}`];
+      return [`${indents}  ${element.name}: ${stringifyTree(element.value, indents)}`];
     }
     if (element.transformation === 'deleted') {
-      return [`${indents}- ${element.name}: ${stringify(element.value, indents)}`];
+      return [`${indents}- ${element.name}: ${stringifyTree(element.value, indents)}`];
     }
     if (element.transformation === 'added') {
-      return [`${indents}+ ${element.name}: ${stringify(element.value, indents)}`];
+      return [`${indents}+ ${element.name}: ${stringifyTree(element.value, indents)}`];
     }
     if (element.transformation === 'changed') {
-      return [`${indents}- ${element.name}: ${stringify(element.firstValue, indents)}\n${indents}+ ${element.name}: ${stringify(element.secondValue, indents)}`];
+      return [`${indents}- ${element.name}: ${stringifyTree(element.firstValue, indents)}\n${indents}+ ${element.name}: ${stringifyTree(element.secondValue, indents)}`];
     }
   });
   return result.join('\n');
