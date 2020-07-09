@@ -13,26 +13,24 @@ const difference = (object1, object2) => {
   const keys = _.union(keysOfFirst, keysOfSecond).sort();
   // eslint-disable-next-line array-callback-return
   const diff = keys.flatMap((key) => {
-    const first = object1[key];
-    const second = object2[key];
     if (_.has(object1, key) && _.has(object2, key)) {
-      if (typeof (first) === 'object' && typeof (second) === 'object') {
-        return { name: key, value: difference(first, second), transformation: 'deepChange' };
+      if (typeof (object1[key]) === 'object' && typeof (object2[key]) === 'object') {
+        return { name: key, value: difference(object1[key], object2[key]), transformation: 'deepChange' };
       }
-      if (first === second) {
-        return { name: key, value: first, transformation: 'unchanged' };
+      if (object1[key] === object2[key]) {
+        return { name: key, value: object1[key], transformation: 'unchanged' };
       }
-      if (first !== second) {
+      if (object1[key] !== object2[key]) {
         return {
-          name: key, firstValue: first, secondValue: second, transformation: 'changed',
+          name: key, firstValue: object1[key], secondValue: object2[key], transformation: 'changed',
         };
       }
     }
-    if (first === undefined) {
-      return { name: key, value: second, transformation: 'added' };
+    if (object1[key] === undefined) {
+      return { name: key, value: object2[key], transformation: 'added' };
     }
-    if (second === undefined) {
-      return { name: key, value: first, transformation: 'deleted' };
+    if (object2[key] === undefined) {
+      return { name: key, value: object1[key], transformation: 'deleted' };
     }
   });
   return diff;
@@ -41,7 +39,6 @@ const difference = (object1, object2) => {
 export default (path1, path2, format) => {
   const firstObj = getFiles(path1);
   const secondObj = getFiles(path2);
-  //const [firstObj, secondObj] = getFiles(path1, path2);
   const transition = difference(firstObj, secondObj);
   if (format === 'stylish') {
     return stylish(transition);
