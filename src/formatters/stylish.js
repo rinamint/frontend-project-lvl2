@@ -11,8 +11,6 @@ const stringify = (value, indents) => {
 
 const innerFormatter = (innerTree, depth) => {
   const indents = ' '.repeat(depth);
-  const added = ' '.repeat(depth);
-  const deleted = ' '.repeat(depth);
   // eslint-disable-next-line array-callback-return
   // eslint-disable-next-line consistent-return
   const result = innerTree.map((element) => {
@@ -23,13 +21,13 @@ const innerFormatter = (innerTree, depth) => {
       return [`${indents}  ${element.name}: ${stringify(element.value, indents)}`];
     }
     if (element.transformation === 'deleted') {
-      return [`${deleted}- ${element.name}: ${stringify(element.value, indents)}`];
+      return [`${indents}- ${element.name}: ${stringify(element.value, indents)}`];
     }
     if (element.transformation === 'added') {
-      return [`${added}+ ${element.name}: ${stringify(element.value, indents)}`];
+      return [`${indents}+ ${element.name}: ${stringify(element.value, indents)}`];
     }
     if (element.transformation === 'changed') {
-      return [`${deleted}- ${element.name}: ${stringify(element.firstValue, indents)}\n${added}+ ${element.name}: ${stringify(element.secondValue, indents)}`];
+      return [`${indents}- ${element.name}: ${stringify(element.firstValue, indents)}\n${indents}+ ${element.name}: ${stringify(element.secondValue, indents)}`];
     }
   });
   return result.join('\n');
