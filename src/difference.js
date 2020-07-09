@@ -5,7 +5,7 @@ const difference = (object1, object2) => {
   const keysOfSecond = _.keys(object2).sort();
   const keys = _.union(keysOfFirst, keysOfSecond).sort();
   // eslint-disable-next-line array-callback-return
-  const diff = keys.flatMap((key) => {
+  const createDiff = keys.flatMap((key) => {
     if (_.has(object1, key) && _.has(object2, key)) {
       if (typeof (object1[key]) === 'object' && typeof (object2[key]) === 'object') {
         return { name: key, value: difference(object1[key], object2[key]), transformation: 'deepChange' };
@@ -26,7 +26,7 @@ const difference = (object1, object2) => {
       return { name: key, value: object1[key], transformation: 'deleted' };
     }
   });
-  return diff;
+  return createDiff;
 };
 
 export default difference;

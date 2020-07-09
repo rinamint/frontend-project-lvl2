@@ -6,20 +6,19 @@ const innerFormatter = (innerTree, depth) => {
   // eslint-disable-next-line array-callback-return
   // eslint-disable-next-line consistent-return
   const result = innerTree.map((element) => {
-    if (element.transformation === 'deepChange') {
-      return [`${indents}  ${element.name}: {\n${innerFormatter(element.value, depth + 4)}\n${indents}  }`];
-    }
-    if (element.transformation === 'unchanged') {
-      return [`${indents}  ${element.name}: ${stringifyTree(element.value, indents)}`];
-    }
-    if (element.transformation === 'deleted') {
-      return [`${indents}- ${element.name}: ${stringifyTree(element.value, indents)}`];
-    }
-    if (element.transformation === 'added') {
-      return [`${indents}+ ${element.name}: ${stringifyTree(element.value, indents)}`];
-    }
-    if (element.transformation === 'changed') {
-      return [`${indents}- ${element.name}: ${stringifyTree(element.firstValue, indents)}\n${indents}+ ${element.name}: ${stringifyTree(element.secondValue, indents)}`];
+    switch (element.transformation) {
+      case 'deepChange':
+        return [`${indents}  ${element.name}: {\n${innerFormatter(element.value, depth + 4)}\n${indents}  }`];
+      case 'unchanged':
+        return [`${indents}  ${element.name}: ${stringifyTree(element.value, indents)}`];
+      case 'deleted':
+        return [`${indents}- ${element.name}: ${stringifyTree(element.value, indents)}`];
+      case 'added':
+        return [`${indents}+ ${element.name}: ${stringifyTree(element.value, indents)}`];
+      case 'changed':
+        return [`${indents}- ${element.name}: ${stringifyTree(element.firstValue, indents)}\n${indents}+ ${element.name}: ${stringifyTree(element.secondValue, indents)}`];
+      default:
+        return [];
     }
   });
   return result.join('\n');

@@ -10,10 +10,12 @@ import parsing from '../src/parsers/parsing'
 
 const getPath = (filename) => path.join(__dirname, '__fixtures__', filename);
 
+
 const expectedStylish = fs.readFileSync(getPath('expected'), 'utf-8');
 const expectedPlain = fs.readFileSync(getPath('expectedPlain'), 'utf-8');
 const expectedTree = fs.readFileSync(getPath('expectedTreeTests'), 'utf-8');
 const expectedPlainTree = fs.readFileSync(getPath('expectedTree'), 'utf-8');
+
 
 test('JSON', () => {
   const beforeJSON = getPath('before.json')
