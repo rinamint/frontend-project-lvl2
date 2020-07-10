@@ -11,19 +11,18 @@ const innerFormatter = (innerTree) => {
   // eslint-disable-next-line array-callback-return
   // eslint-disable-next-line consistent-return
   const result = innerTree.map((element) => {
-    if (element.transformation === 'deepChange') {
-      return [`${element.name}: {${innerFormatter(element.value)}}`];
+    switch (element.transformation) {
+      case 'deepChange':
+        return [`${element.name}: {${innerFormatter(element.value)}}`];
+      case 'unchanged':
+        return [`${element.name}: ${stringify(element.value)}`];
+      case 'deleted':
+        return [`deleted ${element.name}: ${stringify(element.value)}`];
+      case 'added':
+        return [`added ${element.name}: ${stringify(element.value)}`];
+      default:
+        return [`deleted ${element.name}: ${stringify(element.firstValue)} added ${element.name}: ${stringify(element.secondValue)}`];
     }
-    if (element.transformation === 'unchanged') {
-      return [`${element.name}: ${stringify(element.value)}`];
-    }
-    if (element.transformation === 'deleted') {
-      return [`deleted ${element.name}: ${stringify(element.value)}`];
-    }
-    if (element.transformation === 'added') {
-      return [`added ${element.name}: ${stringify(element.value)}`];
-    }
-    return [`deleted ${element.name}: ${stringify(element.firstValue)} added ${element.name}: ${stringify(element.secondValue)}`];
   });
   return result.join(',');
 };
