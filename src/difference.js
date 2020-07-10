@@ -22,11 +22,9 @@ const difference = (object1, object2) => {
     if (before === after) {
       return { name: key, value: object1[key], transformation: 'unchanged' };
     }
-    if (before !== after) {
-      return {
-        name: key, firstValue: object1[key], secondValue: object2[key], transformation: 'changed',
-      };
-    }
+    return {
+      name: key, firstValue: object1[key], secondValue: object2[key], transformation: 'changed',
+    };
   });
   return createDiff;
 };
