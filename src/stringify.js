@@ -16,3 +16,12 @@ export const stringifyTree = (value, indents) => {
   const result = keys.map((key) => `${key}: ${value[key]}\n`);
   return `{\n ${indents}     ${result.join('\n')}${indents}  }`;
 };
+
+export const stringifyJSON = (value) => {
+  if (typeof (value) !== 'object') {
+    return value;
+  }
+  const keys = Object.keys(value);
+  const result = keys.map((key) => `${key}: ${value[key]}`);
+  return `{${result.join(',')}}`;
+};

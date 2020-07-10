@@ -1,11 +1,4 @@
-const stringify = (value) => {
-  if (typeof (value) !== 'object') {
-    return value;
-  }
-  const keys = Object.keys(value);
-  const result = keys.map((key) => `${key}: ${value[key]}`);
-  return `{${result.join(',')}}`;
-};
+import { stringifyJSON } from '../stringify.js';
 
 const innerFormatter = (innerTree) => {
   // eslint-disable-next-line array-callback-return
@@ -15,13 +8,13 @@ const innerFormatter = (innerTree) => {
       case 'deepChange':
         return [`${element.name}: {${innerFormatter(element.value)}}`];
       case 'unchanged':
-        return [`unchanged ${element.name}: ${stringify(element.value)}`];
+        return [`unchanged ${element.name}: ${stringifyJSON(element.value)}`];
       case 'deleted':
-        return [`deleted ${element.name}: ${stringify(element.value)}`];
+        return [`deleted ${element.name}: ${stringifyJSON(element.value)}`];
       case 'added':
-        return [`added ${element.name}: ${stringify(element.value)}`];
+        return [`added ${element.name}: ${stringifyJSON(element.value)}`];
       default:
-        return [`deleted ${element.name}: ${stringify(element.firstValue)} added ${element.name}: ${stringify(element.secondValue)}`];
+        return [`deleted ${element.name}: ${stringifyJSON(element.firstValue)} added ${element.name}: ${stringifyJSON(element.secondValue)}`];
     }
   });
   return result.join(',');
