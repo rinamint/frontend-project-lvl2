@@ -33,11 +33,11 @@ test('JSON', () => {
 });
 
 
-//test('Plain nested', () => {
- // const beforePlain = getPath('treeBefore.json');
- // const afterPlain = getPath('treeAfter.json');
- // expect(diff(beforePlain, afterPlain, 'plain')).toEqual(expectedPlainTree);
-//});
+test('Plain nested', () => {
+  const beforePlain = getPath('treeBefore.json');
+  const afterPlain = getPath('treeAfter.json');
+  expect(diff(beforePlain, afterPlain, 'plain')).toEqual(expectedPlainTree);
+});
 
 test('JSON nested', () => {
   const beforeTree = getPath('treeBefore.json');
@@ -61,7 +61,10 @@ test('INI', () => {
   expect(diff(beforeINI, afterINI, 'json')).toEqual(expectedJSON);
 });
 
-test ('JSON format', () => {
-})
+test('JSON format', () => {
+  const beforeJSON = getPath('before.json');
+  const afterJSON = getPath('after.json');
+  expect(diff(beforeJSON, afterJSON, 'json')).toEqual(expectedJSON);
+});
 
 // npx -n --experimental-vm-modules jest
