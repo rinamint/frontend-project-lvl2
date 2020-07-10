@@ -1,12 +1,13 @@
 import { test, expect } from '@jest/globals';
-import path from 'path';
+import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 import fs from 'fs';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 import diff from '../src/diff.js';
-import parsing from '../src/parsers/parsing'
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(__filename);
+
 
 const getPath = (filename) => path.join(__dirname, '__fixtures__', filename);
 
@@ -18,23 +19,22 @@ const expectedPlainTree = fs.readFileSync(getPath('expectedTree'), 'utf-8');
 
 
 test('JSON', () => {
-  const beforeJSON = getPath('before.json')
-  const afterJSON = getPath('after.json')
+  const beforeJSON = getPath('before.json');
+  const afterJSON = getPath('after.json');
   expect(diff(beforeJSON, afterJSON, 'stylish')).toEqual(expectedStylish);
   expect(diff(beforeJSON, afterJSON, 'plain')).toEqual(expectedPlain);
 });
 
 
-
 test('Plain nested', () => {
-  const beforePlain = getPath('treeBefore.json')
-  const afterPlain = getPath('treeAfter.json')
+  const beforePlain = getPath('treeBefore.json');
+  const afterPlain = getPath('treeAfter.json');
   expect(diff(beforePlain, afterPlain, 'plain')).toEqual(expectedPlainTree);
 });
 
 test('JSON nested', () => {
-  const beforeTree = getPath('treeBefore.json')
-  const afterTree = getPath('treeAfter.json')
+  const beforeTree = getPath('treeBefore.json');
+  const afterTree = getPath('treeAfter.json');
   expect(diff(beforeTree, afterTree, 'stylish')).toEqual(expectedTree);
 });
 
