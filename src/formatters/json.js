@@ -15,7 +15,7 @@ const innerFormatter = (innerTree) => {
       case 'deepChange':
         return [`${element.name}: {${innerFormatter(element.value)}}`];
       case 'unchanged':
-        return [`${element.name}: ${stringify(element.value)}`];
+        return [`unchanged ${element.name}: ${stringify(element.value)}`];
       case 'deleted':
         return [`deleted ${element.name}: ${stringify(element.value)}`];
       case 'added':
@@ -28,6 +28,6 @@ const innerFormatter = (innerTree) => {
 };
 
 export default (tree) => {
-  const formattedTree = innerFormatter(tree, 2);
+  const formattedTree = innerFormatter(tree, null, 2);
   return JSON.stringify(formattedTree);
 };
