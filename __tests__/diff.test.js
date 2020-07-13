@@ -14,14 +14,12 @@ const getPath = (filename) => path.join(__dirname, '__fixtures__', filename);
 let expectedStylish;
 let expectedPlain;
 let expectedTree;
-let expectedPlainTree;
 let expectedJSON;
 
 beforeAll(() => {
   expectedStylish = fs.readFileSync(getPath('expected'), 'utf-8');
   expectedPlain = fs.readFileSync(getPath('expectedPlain'), 'utf-8');
   expectedTree = fs.readFileSync(getPath('expectedTreeTests'), 'utf-8');
-  expectedPlainTree = fs.readFileSync(getPath('expectedTree'), 'utf-8');
   expectedJSON = fs.readFileSync(getPath('expectedJSON'), 'utf-8');
 });
 

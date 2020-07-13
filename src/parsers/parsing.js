@@ -3,21 +3,31 @@ import ini from 'ini';
 import yaml from 'js-yaml';
 import path from 'path';
 
-export default (pathToFile) => {
+const readFiles = (pathToFile) => {
   // eslint-disable-next-line max-len
   const pathToObject = path.isAbsolute(pathToFile) ? pathToFile : path.resolve(process.cwd(), pathToFile);
+  switch (path.extname(pathToObject)) {
+    case '.json':
+      return [fs.readFileSync(pathToObject), 'json'];
+    case '.yml':
+      return [fs.readFileSync(pathToObject, 'utf-8'), 'yml'];
+    case '.ini':
+      return [fs.readFileSync(pathToObject, 'utf-8'), 'ini'];
+    default:
+      return 'ERROR';
+  }
+};
 
-  if (path.extname(pathToObject) === '.json') {
-    const jsonFile = fs.readFileSync(pathToObject);
-    return JSON.parse(jsonFile);
+export default (pathToFile) => {
+  const [file, format] = readFiles(pathToFile);
+  switch (format) {
+    case 'json':
+      return JSON.parse(file);
+    case 'yml':
+      return yaml.safeLoad(file);
+    case 'ini':
+      return ini.decode(file);
+    default:
+      throw new Error(`'Unknown format: ${format}'`);
   }
-  if (path.extname(pathToObject) === '.yml') {
-    const ymlFile = fs.readFileSync(pathToObject, 'utf-8');
-    return yaml.safeLoad(ymlFile);
-  }
-  if (path.extname(pathToObject) === '.ini') {
-    const iniFile = fs.readFileSync(pathToObject, 'utf-8');
-    return ini.decode(iniFile);
-  }
-  return 'ERROR';
 };
