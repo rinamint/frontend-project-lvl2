@@ -2,7 +2,7 @@ import { test, expect, beforeAll } from '@jest/globals';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import diff from '../src/diff.js';
+import diff from '../src/index.js';
 // eslint-disable-next-line no-underscore-dangle
 const __filename = fileURLToPath(import.meta.url);
 // eslint-disable-next-line no-underscore-dangle
@@ -32,12 +32,6 @@ test('JSON', () => {
   expect(diff(beforeJSON, afterJSON, 'plain')).toEqual(expectedPlain);
 });
 
-
-test('Plain nested', () => {
-  const beforePlain = getPath('treeBefore.json');
-  const afterPlain = getPath('treeAfter.json');
-  expect(diff(beforePlain, afterPlain, 'plain')).toEqual(expectedPlainTree);
-});
 
 test('JSON nested', () => {
   const beforeTree = getPath('treeBefore.json');

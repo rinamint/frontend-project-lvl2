@@ -3,8 +3,6 @@ import { stringifyTree } from '../stringify.js';
 
 const innerFormatter = (innerTree, depth) => {
   const indents = ' '.repeat(depth);
-  // eslint-disable-next-line array-callback-return
-  // eslint-disable-next-line consistent-return
   const result = innerTree.map((element) => {
     switch (element.transformation) {
       case 'deepChange':
@@ -18,7 +16,7 @@ const innerFormatter = (innerTree, depth) => {
       case 'changed':
         return [`${indents}- ${element.name}: ${stringifyTree(element.firstValue, indents)}\n${indents}+ ${element.name}: ${stringifyTree(element.secondValue, indents)}`];
       default:
-        return [];
+        throw new Error(`'Unknown transformation: ${element.transformation}'`);
     }
   });
   return result.join('\n');

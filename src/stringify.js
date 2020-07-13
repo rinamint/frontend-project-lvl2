@@ -1,5 +1,7 @@
+import _ from 'lodash';
+
 export const stringifyPlain = (value) => {
-  if (typeof (value) === 'object') {
+  if (_.isObject(value)) {
     return '[complex value]';
   }
   if (value === true || value === false) {
@@ -9,7 +11,7 @@ export const stringifyPlain = (value) => {
 };
 
 export const stringifyTree = (value, indents) => {
-  if (typeof (value) !== 'object') {
+  if (!_.isObject(value)) {
     return value;
   }
   const keys = Object.keys(value);
@@ -18,7 +20,7 @@ export const stringifyTree = (value, indents) => {
 };
 
 export const stringifyJSON = (value) => {
-  if (typeof (value) !== 'object') {
+  if (!_.isObject(value)) {
     return value;
   }
   const keys = Object.keys(value);
