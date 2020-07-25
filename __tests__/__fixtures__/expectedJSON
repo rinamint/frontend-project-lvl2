@@ -1,1 +1,28 @@
-"added follow: false,unchanged host: hexlet.io,added proxy: 123.234.53.22,deleted timeout: 20 added timeout: 50,deleted verbose: true"
+[
+  {
+    "name": "follow",
+    "value": false,
+    "transformation": "added"
+  },
+  {
+    "name": "host",
+    "value": "hexlet.io",
+    "transformation": "unchanged"
+  },
+  {
+    "name": "proxy",
+    "value": "123.234.53.22",
+    "transformation": "added"
+  },
+  {
+    "name": "timeout",
+    "firstValue": 20,
+    "secondValue": 50,
+    "transformation": "changed"
+  },
+  {
+    "name": "verbose",
+    "value": true,
+    "transformation": "deleted"
+  }
+]

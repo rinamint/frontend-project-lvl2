@@ -50,7 +50,6 @@ test('INI', () => {
   const afterINI = getPath('after.ini');
   expect(diff(beforeINI, afterINI, 'stylish')).toEqual(expectedStylish);
   expect(diff(beforeINI, afterINI, 'plain')).toEqual(expectedPlain);
-  expect(diff(beforeINI, afterINI, 'json')).toEqual(expectedJSON);
 });
 
 test('JSON format', () => {
