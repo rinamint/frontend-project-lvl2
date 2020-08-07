@@ -5,7 +5,7 @@ const innerPlain = (tree, beginning) => {
   const result = onlyChanged.map((element) => {
     switch (element.transformation) {
       case 'deepChange':
-        return `${innerPlain(element.value, `${beginning}${element.name}.`)}`;
+        return `${innerPlain(element.children, `${beginning}${element.name}.`)}`;
       case 'deleted':
         return `Property '${beginning}${element.name}' was removed`;
       case 'added':

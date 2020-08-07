@@ -1,8 +1,9 @@
-import getFiles from './parsers/parsing.js';
+import parse, { readFiles } from './parsers/parsing.js';
 import stylish from './formatters/stylish.js';
 import plain from './formatters/plain.js';
 import json from './formatters/json.js';
-import difference from './difference.js';
+import generateDiff from './difference.js';
+
 
 const formatter = (diff, format) => {
   switch (format) {
@@ -19,8 +20,8 @@ const formatter = (diff, format) => {
 
 
 export default (path1, path2, format) => {
-  const firstObj = getFiles(path1);
-  const secondObj = getFiles(path2);
-  const transition = difference(firstObj, secondObj);
+  const [firstFile, firstFormat] = readFiles(path1);
+  const [secondFile, secondFormat] = readFiles(path2);
+  const transition = generateDiff(parse(firstFile, firstFormat), parse(secondFile, secondFormat));
   return formatter(transition, format);
 };

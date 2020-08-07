@@ -6,7 +6,7 @@ const innerFormatter = (innerTree, depth) => {
   const result = innerTree.map((element) => {
     switch (element.transformation) {
       case 'deepChange':
-        return `${indents}  ${element.name}: {\n${innerFormatter(element.value, depth + 4)}\n${indents}  }`;
+        return `${indents}  ${element.name}: {\n${innerFormatter(element.children, depth + 4)}\n${indents}  }`;
       case 'unchanged':
         return `${indents}  ${element.name}: ${stringifyTree(element.value, indents)}`;
       case 'deleted':

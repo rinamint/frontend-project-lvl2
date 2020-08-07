@@ -3,30 +3,27 @@ import ini from 'ini';
 import yaml from 'js-yaml';
 import path from 'path';
 
-const readFiles = (pathToFile) => {
-  // eslint-disable-next-line max-len
-  const pathToObject = path.isAbsolute(pathToFile) ? pathToFile : path.resolve(process.cwd(), pathToFile);
-  switch (path.extname(pathToObject)) {
+export const readFiles = (pathToFile) => {
+  switch (path.extname(pathToFile)) {
     case '.json':
-      return [fs.readFileSync(pathToObject), 'json'];
+      return [fs.readFileSync(pathToFile), 'json'];
     case '.yml':
-      return [fs.readFileSync(pathToObject, 'utf-8'), 'yml'];
+      return [fs.readFileSync(pathToFile, 'utf-8'), 'yml'];
     case '.ini':
-      return [fs.readFileSync(pathToObject, 'utf-8'), 'ini'];
+      return [fs.readFileSync(pathToFile, 'utf-8'), 'ini'];
     default:
-      return 'ERROR';
+      throw new Error(`'Wrong filepath: ${pathToFile}'`);
   }
 };
 
-export default (pathToFile) => {
-  const [file, format] = readFiles(pathToFile);
+export default (file, format) => {
   switch (format) {
     case 'json':
       return JSON.parse(file);
     case 'yml':
       return yaml.safeLoad(file);
     case 'ini':
-      return ini.decode(file);
+      return ini.parse(file);
     default:
       throw new Error(`'Unknown format: ${format}'`);
   }

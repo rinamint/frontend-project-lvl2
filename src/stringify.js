@@ -18,4 +18,3 @@ export const stringifyTree = (value, indents) => {
   const result = keys.map((key) => `${key}: ${value[key]}\n`);
   return `{\n ${indents}     ${result.join('\n')}${indents}  }`;
 };
-

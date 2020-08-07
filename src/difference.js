@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const difference = (object1, object2) => {
+const generateDiff = (object1, object2) => {
   const keysOfFirst = _.keys(object1);
   const keysOfSecond = _.keys(object2);
   const keys = _.union(keysOfFirst, keysOfSecond).sort();
@@ -15,7 +15,7 @@ const difference = (object1, object2) => {
       return { name: key, value: before, transformation: 'deleted' };
     }
     if (_.isObject(before) && _.isObject(after)) {
-      return { name: key, value: difference(before, after), transformation: 'deepChange' };
+      return { name: key, children: generateDiff(before, after), transformation: 'deepChange' };
     }
     if (before === after) {
       return { name: key, value: before, transformation: 'unchanged' };
@@ -27,4 +27,4 @@ const difference = (object1, object2) => {
   return createDiff;
 };
 
-export default difference;
+export default generateDiff;
