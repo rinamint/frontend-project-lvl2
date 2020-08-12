@@ -31,11 +31,6 @@ beforeAll(() => {
   expectedPlainJson = fs.readFileSync(getPath('expectedPlainJson'), 'utf-8');
 });
 
-test('INI', () => {
-  const beforeINI = getPath('before.ini');
-  const afterINI = getPath('after.ini');
-  expect(generateDiff(beforeINI, afterINI, 'json')).toEqual(expectedJSON);
-});
 
 test.each(files)('compare two files', (file1, file2) => {
   const before = getPath(file1);
