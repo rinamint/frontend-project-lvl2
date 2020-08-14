@@ -5,7 +5,7 @@ const generateDiff = (object1, object2) => {
   const keysOfSecond = _.keys(object2);
   const keys = _.union(keysOfFirst, keysOfSecond).sort();
 
-  const createDiff = keys.flatMap((key) => {
+  const createDiff = keys.map((key) => {
     const before = object1[key];
     const after = object2[key];
     if (_.isUndefined(before)) {

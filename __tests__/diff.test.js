@@ -14,7 +14,6 @@ const files = [
   ['before.json', 'after.json'],
   ['before.ini', 'after.ini'],
   ['before.yml', 'after.yml'],
-  ['before.ini', 'after.ini'],
 ];
 
 let expectedStylish;
@@ -35,6 +34,22 @@ beforeAll(() => {
 test.each(files)('compare two files', (file1, file2) => {
   const before = getPath(file1);
   const after = getPath(file2);
+  expect(generateDiff(before, after, 'stylish')).toEqual(expectedStylish);
+  expect(generateDiff(before, after, 'plain')).toEqual(expectedPlain);
+  expect(generateDiff(before, after, 'json')).toEqual(expectedJSON);
+});
+
+test('INI', () => {
+  const before = getPath('before.ini');
+  const after = getPath('after.ini');
+  expect(generateDiff(before, after, 'stylish')).toEqual(expectedStylish);
+  expect(generateDiff(before, after, 'plain')).toEqual(expectedPlain);
+  expect(generateDiff(before, after, 'json')).toEqual(expectedJSON);
+});
+
+test('YML', () => {
+  const before = getPath('before.yml');
+  const after = getPath('after.yml');
   expect(generateDiff(before, after, 'stylish')).toEqual(expectedStylish);
   expect(generateDiff(before, after, 'plain')).toEqual(expectedPlain);
   expect(generateDiff(before, after, 'json')).toEqual(expectedJSON);

@@ -1,20 +1,19 @@
-import parse, { readFiles } from './parsers/parsing.js';
-import stylish from './formatters/stylish.js';
-import plain from './formatters/plain.js';
-import json from './formatters/json.js';
+import path from 'path';
+import fs from 'fs';
+import parse from './parsing.js';
+import formatter from './formatters/formatter.js';
 import generateDiff from './difference.js';
 
-
-const formatter = (diff, format) => {
-  switch (format) {
-    case 'plain':
-      return plain(diff);
-    case 'json':
-      return json(diff);
-    case 'stylish':
-      return stylish(diff);
+const readFiles = (pathToFile) => {
+  switch (path.extname(pathToFile)) {
+    case '.json':
+      return [fs.readFileSync(pathToFile), 'json'];
+    case '.yml':
+      return [fs.readFileSync(pathToFile, 'utf-8'), 'yml'];
+    case '.ini':
+      return [fs.readFileSync(pathToFile, 'utf-8'), 'ini'];
     default:
-      throw new Error(`'Unknown format: ${format}'`);
+      throw new Error(`'Wrong filepath: ${pathToFile}'`);
   }
 };
 

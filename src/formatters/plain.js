@@ -1,4 +1,14 @@
-import { stringifyPlain } from '../stringify.js';
+import _ from 'lodash';
+
+const stringifyPlain = (value) => {
+  if (_.isObject(value)) {
+    return '[complex value]';
+  }
+  if (_.isString(value)) {
+    return `'${value}'`;
+  }
+  return value;
+};
 
 const innerPlain = (tree, beginning) => {
   const onlyChanged = tree.filter((element) => element.transformation !== 'unchanged');
@@ -16,7 +26,7 @@ const innerPlain = (tree, beginning) => {
         throw new Error(`'Unknown transformation: ${element.transformation}'`);
     }
   });
-  return result.flat().join('\n');
+  return result.join('\n');
 };
 
 export default (tree) => innerPlain(tree, '');

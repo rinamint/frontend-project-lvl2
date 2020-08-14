@@ -1,5 +1,13 @@
-import { stringifyTree } from '../stringify.js';
+import _ from 'lodash';
 
+const stringifyTree = (value, indents) => {
+  if (!_.isObject(value)) {
+    return value;
+  }
+  const keys = Object.keys(value);
+  const result = keys.map((key) => `${key}: ${value[key]}\n`);
+  return `{\n ${indents}     ${result.join('\n')}${indents}  }`;
+};
 
 const innerFormatter = (innerTree, depth) => {
   const indents = ' '.repeat(depth);
