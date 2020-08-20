@@ -3,14 +3,14 @@ import plain from './plain.js';
 import json from './json.js';
 
 
-export default (diff, format) => {
+export default (tree, format) => {
   switch (format) {
     case 'plain':
-      return plain(diff);
+      return plain(tree);
     case 'json':
-      return json(diff);
+      return json(tree);
     case 'stylish':
-      return stylish(diff);
+      return stylish(tree);
     default:
       throw new Error(`'Unknown format: ${format}'`);
   }

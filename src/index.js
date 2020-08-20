@@ -4,11 +4,16 @@ import parse from './parsing.js';
 import formatter from './formatters/formatter.js';
 import generateDiff from './difference.js';
 
-const readFiles = (pathToFile) => [fs.readFileSync(pathToFile, 'utf-8'), path.extname(pathToFile).slice(1)];
+const getData = (pathToFile) => {
+  const reading = fs.readFileSync(pathToFile, 'utf-8');
+  const format = path.extname(pathToFile).slice(1);
+  return parse(reading, format);
+};
+
 
 export default (path1, path2, format) => {
-  const [firstFile, firstFormat] = readFiles(path1);
-  const [secondFile, secondFormat] = readFiles(path2);
-  const transition = generateDiff(parse(firstFile, firstFormat), parse(secondFile, secondFormat));
-  return formatter(transition, format);
+  const firstFile = getData(path1);
+  const secondFile = getData(path2);
+  const diff = generateDiff(firstFile, secondFile);
+  return formatter(diff, format);
 };

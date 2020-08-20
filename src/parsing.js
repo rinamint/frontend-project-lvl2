@@ -4,28 +4,25 @@ import yaml from 'js-yaml';
 import _ from 'lodash';
 
 
-const transformObj = (obj) => {
-  const newObj = _.mapValues(obj, (value) => {
-    if (_.isObject(value)) {
-      return transformObj(value);
-    }
-    if (_.isNaN(Number(value)) || _.isBoolean(value)) {
-      return value;
-    }
+const fixNums = (obj) => _.mapValues(obj, (value) => {
+  if (_.isObject(value)) {
+    return fixNums(value);
+  }
+  if (!_.isNaN(Number(value)) && !_.isBoolean(value)) {
     return Number(value);
-  });
-  return newObj;
-};
+  }
+  return value;
+});
 
 
-export default (file, format) => {
+export default (data, format) => {
   switch (format) {
     case 'json':
-      return JSON.parse(file);
+      return JSON.parse(data);
     case 'yml':
-      return yaml.safeLoad(file);
+      return yaml.safeLoad(data);
     case 'ini':
-      return transformObj(ini.parse(file));
+      return fixNums(ini.parse(data));
     default:
       throw new Error(`'Unknown format: ${format}'`);
   }
