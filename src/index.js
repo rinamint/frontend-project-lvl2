@@ -4,9 +4,11 @@ import parse from './parsing.js';
 import formatter from './formatters/formatter.js';
 import generateDiff from './difference.js';
 
+const getFormat = (pathToFile) => path.extname(pathToFile).slice(1);
+
 const getData = (pathToFile) => {
   const reading = fs.readFileSync(pathToFile, 'utf-8');
-  const format = path.extname(pathToFile).slice(1);
+  const format = getFormat(pathToFile);
   return parse(reading, format);
 };
 

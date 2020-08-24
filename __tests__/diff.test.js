@@ -12,9 +12,9 @@ const __dirname = dirname(__filename);
 const getPath = (filename) => path.join(__dirname, '__fixtures__', filename);
 
 const files = [
-  ['.json', '.json'],
-  ['.ini', '.ini'],
-  ['.yml', '.yml'],
+  ['.json'],
+  ['.ini'],
+  ['.yml'],
 ];
 
 let expectedStylish;
@@ -32,20 +32,19 @@ beforeAll(() => {
 });
 
 
-test.each(files)('compare two files', (file1, file2) => {
+test.each(files)('compare two files', (file1) => {
   const before = getPath(`before${file1}`);
-  const after = getPath(`after${file2}`);
+  const after = getPath(`after${file1}`);
   expect(generateDiff(before, after, 'stylish')).toEqual(expectedStylish);
-  expect(generateDiff(before, after, 'plain')).toEqual(expectedPlain);
   expect(generateDiff(before, after, 'json')).toEqual(expectedJSON);
 });
 
-test('JSON nested', () => {
-  const beforeTree = getPath('treeBefore.json');
-  const afterTree = getPath('treeAfter.json');
+test.each(files)('compare two nested files', (file1) => {
+  const beforeTree = getPath(`nestedBefore${file1}`);
+  const afterTree = getPath(`nestedAfter${file1}`);
   expect(generateDiff(beforeTree, afterTree, 'stylish')).toEqual(expectedTree);
+  expect(generateDiff(beforeTree, afterTree, 'plain')).toEqual(expectedPlain);
   expect(generateDiff(beforeTree, afterTree, 'json')).toEqual(expectedJsonNested);
 });
-
 
 // npx -n --experimental-vm-modules jest

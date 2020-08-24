@@ -14,6 +14,7 @@ const fixNums = (obj) => _.mapValues(obj, (value) => {
   return value;
 });
 
+const parseINI = (data) => fixNums(ini.parse(data));
 
 export default (data, format) => {
   switch (format) {
@@ -22,7 +23,7 @@ export default (data, format) => {
     case 'yml':
       return yaml.safeLoad(data);
     case 'ini':
-      return fixNums(ini.parse(data));
+      return parseINI(data);
     default:
       throw new Error(`'Unknown format: ${format}'`);
   }
