@@ -8,8 +8,8 @@ const fixNums = (obj) => _.mapValues(obj, (value) => {
   if (_.isObject(value)) {
     return fixNums(value);
   }
-  if (!_.isNaN(Number(value)) && !_.isBoolean(value)) {
-    return Number(value);
+  if (!_.isNaN(parseFloat(value))) {
+    return parseFloat(value);
   }
   return value;
 });

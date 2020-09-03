@@ -14,8 +14,8 @@ const getData = (pathToFile) => {
 
 
 export default (path1, path2, format) => {
-  const firstFile = getData(path1);
-  const secondFile = getData(path2);
-  const diff = generateDiff(firstFile, secondFile);
+  const firstObject = getData(path1);
+  const secondObject = getData(path2);
+  const diff = generateDiff(firstObject, secondObject);
   return formatter(diff, format);
 };

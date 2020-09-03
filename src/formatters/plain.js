@@ -10,18 +10,18 @@ const stringifyPlain = (value) => {
   return value;
 };
 
-const innerPlain = (tree, beginning) => {
+const innerPlain = (tree, path) => {
   const onlyChanged = tree.filter((element) => element.transformation !== 'unchanged');
   const result = onlyChanged.map((element) => {
     switch (element.transformation) {
       case 'deepChange':
-        return `${innerPlain(element.children, `${beginning}${element.name}.`)}`;
+        return innerPlain(element.children, [...path, element.name]);
       case 'deleted':
-        return `Property '${beginning}${element.name}' was removed`;
+        return `Property '${[...path, element.name].join('.')}' was removed`;
       case 'added':
-        return `Property '${beginning}${element.name}' was added with value: ${stringifyPlain(element.value)}`;
+        return `Property '${[...path, element.name].join('.')}' was added with value: ${stringifyPlain(element.value)}`;
       case 'changed':
-        return `Property '${beginning}${element.name}' was updated. From ${stringifyPlain(element.firstValue)} to ${stringifyPlain(element.secondValue)}`;
+        return `Property '${[...path, element.name].join('.')}' was updated. From ${stringifyPlain(element.firstValue)} to ${stringifyPlain(element.secondValue)}`;
       default:
         throw new Error(`'Unknown transformation: ${element.transformation}'`);
     }
@@ -29,4 +29,4 @@ const innerPlain = (tree, beginning) => {
   return result.join('\n');
 };
 
-export default (tree) => innerPlain(tree, '');
+export default (tree) => innerPlain(tree, []);
