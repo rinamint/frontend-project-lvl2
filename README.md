@@ -13,4 +13,4 @@ FORMATTERS:
 [![asciicast](https://asciinema.org/a/AY5wVZrnv2jktxX2xPVugrMbp.svg)](https://asciinema.org/a/AY5wVZrnv2jktxX2xPVugrMbp)
 
 'JSON'
-[![asciicast](https://asciinema.org/a/V7LUFyw8Gh9gG4a7y9E0rcbdd.svg)](https://asciinema.org/a/V7LUFyw8Gh9gG4a7y9E0rcbdd)
+[![asciicast](https://asciinema.org/a/hTapTpseQ4lI8D6F9bVOSnelM.svg)](https://asciinema.org/a/hTapTpseQ4lI8D6F9bVOSnelM)
