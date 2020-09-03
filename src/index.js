@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import parse from './parsing.js';
-import formatter from './formatters/formatter.js';
+import formatter from './formatters';
 import generateDiff from './difference.js';
 
 const getFormat = (pathToFile) => path.extname(pathToFile).slice(1);
