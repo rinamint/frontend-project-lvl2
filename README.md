@@ -7,13 +7,13 @@
 
 #### Formatters: 
 
-'stylish'
+##### 'stylish'
 [![asciicast](https://asciinema.org/a/EXyhBy3ztwDwaaZVY9PPh5IkN.svg)](https://asciinema.org/a/EXyhBy3ztwDwaaZVY9PPh5IkN)
 
 
-'plain'
+##### 'plain'
 [![asciicast](https://asciinema.org/a/AY5wVZrnv2jktxX2xPVugrMbp.svg)](https://asciinema.org/a/AY5wVZrnv2jktxX2xPVugrMbp)
 
 
-'JSON'
+##### 'JSON'
 [![asciicast](https://asciinema.org/a/hTapTpseQ4lI8D6F9bVOSnelM.svg)](https://asciinema.org/a/hTapTpseQ4lI8D6F9bVOSnelM)
