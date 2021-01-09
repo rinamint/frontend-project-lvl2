@@ -5,7 +5,7 @@
 ![Node.js CI](https://github.com/rinamint/project-lvl2/workflows/Node.js%20CI/badge.svg)
 ### cli-app, which compares two configuration files and shows a difference.
 
-###### Formatters: 
+#### Formatters: 
 
 'stylish'
 [![asciicast](https://asciinema.org/a/EXyhBy3ztwDwaaZVY9PPh5IkN.svg)](https://asciinema.org/a/EXyhBy3ztwDwaaZVY9PPh5IkN)
