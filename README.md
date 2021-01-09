@@ -3,6 +3,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/e94429aa692d6f5e8c5b/test_coverage)](https://codeclimate.com/github/rinamint/project-lvl2/test_coverage)
 
 ![Node.js CI](https://github.com/rinamint/project-lvl2/workflows/Node.js%20CI/badge.svg)
+### cli-app, which compares two configuration files and shows a difference.
 
 FORMATTERS: 
 
